@@ -115,7 +115,7 @@ body {
   font-weight: 600;
   color: white;
   font-family: 'Kumbh Sans';
-  margin-top: 0.8rem;
+  margin-top: 0.2rem;
 }
 #cart_wrapper {
   width: 100%;
@@ -124,7 +124,7 @@ body {
   align-items: center;
   z-index: 2;
   height: 80%;
-  padding: 1rem 1.5rem 1.8rem 1.5rem;
+  padding: 0.4rem 1.5rem 1.8rem 1.5rem;
   border-top: 1px #acacacb3 solid;
   border-radius: 1rem 1rem 0 0;
   background: white;
@@ -135,7 +135,7 @@ body {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  margin: 0.6rem 0;
+  margin: 1.2rem 0;
 }
 .cart_item img:first-child {
   width: 2.5rem;
@@ -144,7 +144,7 @@ body {
 .item_details p {
   color: hsl(219, 9%, 45%);
   word-spacing: 2px;
-  line-height: 1.4rem;
+  line-height: 1.5rem;
 }
 li a {
   text-decoration: none;
@@ -373,7 +373,7 @@ li a {
   }
   .nav_container .cart {
     width: 90%;
-    max-width: 22rem;
+    max-width: 21rem;
     right: 5%;
   }
   .cart_container img:last-child {
@@ -397,6 +397,10 @@ li a {
   .price_box h2 {
     margin-right: 1rem;
     font-size: 1.8rem;
+  }
+  .item_details {
+    width: -webkit-fill-available;
+    padding-left: 1rem;
   }
 }
 .nav_container .active,
