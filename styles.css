@@ -1,4 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
   /* background-color: hsl(25, 100%, 94%); */
   background-color: hsl(223, 64%, 98%);
@@ -96,6 +97,7 @@ body {
 }
 #cart_empty h4 {
   color: hsl(219, 9%, 45%);
+  margin-top: -2rem;
 }
 #cart_empty {
   position: absolute;
@@ -140,6 +142,10 @@ body {
 .cart_item img:first-child {
   width: 2.5rem;
   border-radius: 3px;
+}
+.item_details {
+  width: -webkit-fill-available;
+  padding-left: 1.2rem;
 }
 .item_details p {
   color: hsl(219, 9%, 45%);
@@ -399,7 +405,6 @@ li a {
     font-size: 1.8rem;
   }
   .item_details {
-    width: -webkit-fill-available;
     padding-left: 1rem;
   }
 }
