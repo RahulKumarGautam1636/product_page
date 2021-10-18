@@ -46,31 +46,7 @@
       <div id="cart_wrapper">
 
     <div style="width: 100%" id="cart_list">
-      <!-- <div class="cart_item">
-        <img src="images/image-product-1-thumbnail.jpg" alt="product_one">
-        <div class="item_details">
-          <p>Autumn Limited Edition</p>
-          <p>$125.00 x 3 $375.00</p>
-        </div>
-        <img src="images/icon-delete.svg" alt="delete">
-      </div> -->
 
-      <!-- <div class="cart_item">
-        <img src="images/image-product-1-thumbnail.jpg" alt="product_one">
-        <div class="item_details">
-          <p>Autumn Limited Edition</p>
-          <p>$125.00 x 3 $375.00</p>
-        </div>
-        <img src="images/icon-delete.svg" alt="delete">
-      </div>
-      <div class="cart_item">
-        <img src="images/image-product-1-thumbnail.jpg" alt="product_one">
-        <div class="item_details">
-          <p>Autumn Limited Edition</p>
-          <p>$125.00 x 3 $375.00</p>
-        </div>
-        <img src="images/icon-delete.svg" alt="delete">
-      </div> -->
     </div>
       <button id="checkout_button" type="button" name="button">CHECKOUT</button>
     </div>
@@ -105,7 +81,7 @@
          <p id="itemCount">1</p>
          <img onclick="itemCount(-1)" src="images/icon-minus.svg" alt="remove">
        </div>
-       <button onclick="newItem()" class="addToCartButton" type="button" name="button">
+       <button onclick="renderCartItems(1)" class="addToCartButton" type="button" name="button">
          <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z" fill="#fff" fill-rule="nonzero"/></svg>
          Add To Cart
        </button>
@@ -121,19 +97,28 @@
   const items = [
     {
       id: 1,
-      about: 'Autumn Limited Edition',
-      price: 101.50,
-      images: ['images\image-product-1.jpg', 'images\image-product-2.jpg', 'images\image-product-3.jpg', 'images\image-product-4.jpg'],
-      thumbs: ['images\image-product-1-thumbnail.jpg', 'images\image-product-2-thumbnail.jpg', 'images\image-product-3-thumbnail.jpg', 'images\image-product-4-thumbnail.jpg']
+      tag: 'Autumn Limited Edition',
+      rate: 101.50,
+      images: ['images/image-product-1.jpg', 'images/image-product-2.jpg', 'images/image-product-3.jpg', 'images/image-product-4.jpg'],
+      thumbs: ['images/image-product-1-thumbnail.jpg', 'images/image-product-2-thumbnail.jpg', 'images/image-product-3-thumbnail.jpg', 'images/image-product-4-thumbnail.jpg'],
+      quantity: 1
     }
   ]
-  // document.querySelector('#op')
-  // const classes = nav_bar.classList.value;
-  // console.log(classes);
-  // if (classes.includes('test')) {
-  //   console.log('present');1
-  // }
+  let cartItems = [
+      {
+        id: 2,
+        tag: 'This is sample item.',
+        rate: 101.50,
+        images: ['images/image-product-1.jpg', 'images/image-product-2.jpg', 'images/image-product-3.jpg', 'images/image-product-4.jpg'],
+        thumbs: ['images/image-product-2-thumbnail.jpg', 'images/image-product-2-thumbnail.jpg', 'images/image-product-3-thumbnail.jpg', 'images/image-product-4-thumbnail.jpg'],
+        quantity: 2
+      }
+  ];
+
   const itemCount = (i) => {
+    if (totalItem+i === 0) {
+      return;
+    }
     totalItem = totalItem + i;
     document.querySelector('#itemCount').innerText = totalItem;
   }
@@ -143,14 +128,22 @@
   }
   const toggleCart = () => {
     cart.classList.toggle('active');
-    // cart.style.backgroundColor = "cyan";
   }
-  const newItem = (imgLink=1, tag='This is sample code', rate=100.50, quantity=totalItem) => {
+  const renderCartItems = (id) => {
+    if (checkDuplicate) {
+      deleteItem(id);
+    }
+    const selectedItem = items.filter(i => i.id === id)[0];
+    newItem(selectedItem.id, selectedItem.thumbs[0], selectedItem.tag, selectedItem.rate, totalItem);
+    cartItems.push(selectedItem);
+  }
+
+  const newItem = (id, imgLink='1', tag='This is sample code', rate=100.50, quantity=totalItem) => {
     cartItem = document.createElement('div');
     cartItem.classList.add('cart_item');
 
     img = document.createElement('img');
-    img.setAttribute('src', `images/image-product-${imgLink}-thumbnail.jpg`);
+    img.setAttribute('src', imgLink);
     cartItem.appendChild(img);
 
     itemDetails = document.createElement('div');
@@ -166,25 +159,39 @@
 
     delImg = document.createElement('img');
     delImg.setAttribute('src', 'images/icon-delete.svg');
-    delImg.onclick = deleteItem;
-    // delImg.onclick = function() {
-    //   while (cart_list.hasChildNodes()) {
-    //     cart_list.removeChild(cart_list.firstChild);
-    //   }
-    //   console.log(cart_list.hasChildNodes());
+    // delImg.onclick = function(id) {
+    //   console.log(id);
+    //   deleteItem(id);    // don't use this method it passes event instead of passing parameter id.
     // };
+    delImg.addEventListener('click', function() {
+      deleteItem(id)
+    })
 
     cartItem.appendChild(delImg);
     cart_list.appendChild(cartItem);
   }
-  const deleteItem = () => {
+  const deleteItem = (id) => {
     while (cart_list.hasChildNodes()) {
       cart_list.removeChild(cart_list.firstChild);
     }
-    console.log(cart_list.hasChildNodes());
+    console.log(id);
+    cartItems = cartItems.filter(i => i.id !== id);1
+    console.log(cartItems);
+    cartItems.forEach(i => newItem(i.id, i.thumbs[0], i.tag, i.rate, i.quantity));
   }
+  function renderCart() {
+    cartItems.forEach(i => newItem(i.id, i.thumbs[0], i.tag, i.rate, i.totalItem));
+  }
+  renderCart();
   const switchImage = (i) => {
     preview_Image.setAttribute('src', `images/image-product-${i}.jpg`);
+  }
+  const checkDuplicate = (id) => {
+    const duplicateItem = cartItems.filter(i => i.id === id );
+    if (duplicateItem.length > 0) {
+      return true;
+    }
+    return false;
   }
 </script>
 </body>
