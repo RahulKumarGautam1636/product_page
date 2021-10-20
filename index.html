@@ -55,7 +55,30 @@
   <div class="product_container">
     <div class="image_container">
       <div class="main_image">
-      <img id="preview_Image" src="images\image-product-1.jpg" alt="preview">
+      <!-- <img id="preview_Image" src="images\image-product-1.jpg" alt="preview"> -->
+
+      <div id="image_wrapper">
+         <img onclick="slideRight()" class="arrows arrowLeft" src="images/icon-previous.svg" alt="arroRight"/>
+
+         <div id='imgWrap'>
+           <div>
+           <img class="productView" id="preview_Image" src="images/image-product-1.jpg" alt="product"/>
+           </div>
+           <div>
+           <img class="productView" src="images/image-product-2.jpg" alt="product"/>
+           </div>
+           <div>
+           <img class="productView" src="images/image-product-3.jpg" alt="product"/>
+           </div>
+           <div>
+           <img class="productView" src="images/image-product-4.jpg" alt="product"/>
+           </div>
+         </div>
+
+         <img onclick="slideLeft()" class="arrows" src="images/icon-next.svg" alt="arroRight"/>
+      </div>
+
+
       </div>
       <div class="thumbnail_box">
         <img onclick="switchImage(1)" src="images\image-product-1-thumbnail.jpg" alt="thumbnail">
@@ -201,6 +224,32 @@
       return true;
     }
     return false;
+  }
+  const imgWrap = document.querySelector("#imgWrap");
+  let n = 0;
+  let numberOfImages = 4;
+  let translatePerClick = 100/numberOfImages;
+  var c = document.querySelector(".thumbnail_box").children[0];
+  c.classList.add('thumbActive');
+  function slideLeft() {
+    if (n <= 2) {
+      n = n + 1;
+      imgWrap.style.transform = `translateX(-${translatePerClick*n}%)`;
+      c = document.querySelector(".thumbnail_box").children[n];
+      c.classList.add('thumbActive');
+      c = document.querySelector(".thumbnail_box").children[n-1];
+      c.classList.remove('thumbActive');
+    }
+  }
+  function slideRight() {
+    if (n >= 1) {
+      n = n-1;1
+      imgWrap.style.transform = `translateX(-${translatePerClick*n}%)`;
+      c = document.querySelector(".thumbnail_box").children[n];
+      c.classList.add('thumbActive')
+      c = document.querySelector(".thumbnail_box").children[n+1];
+      c.classList.remove('thumbActive');
+    }
   }
 </script>
 </body>
