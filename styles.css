@@ -185,27 +185,77 @@ li a {
   font-weight: bold;
 }
 .image_container .main_image {
-  height: 78%;
+  height: 76%;
 }
 .image_container .thumbnail_box {
   height: 20%;
 }
-#preview_Image {
+#image_wrapper {
+  width: 100%;
+  height: 100%;
+  /* box-shadow: -10px -10px 10px rgb(255 255 255 / 20%), 10px 10px 7px rgb(0 0 0 / 10%); */
+  position: relative;
+  overflow: hidden;
+  border-radius: 3%;
+}
+#image_wrapper .arrows {
+    height: 1.6rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    right: 1rem;
+}
+.arrowLeft {
+    left: 1rem;
+    z-index: 1;
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+}
+#imgWrap {
+    height: 100%;
+    width: 400%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: .5s ease-in-out;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+#imgWrap > div {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+.productView {
   height: 100%;
   width: 100%;
-  border-radius: 3%;
+  /* border-radius: 3%; */
+  /* height: clamp(8rem,50vw,12rem); */
 }
 .image_container .thumbnail_box {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .thumbnail_box img {
   height: 75%;
   width: 20%;
   object-fit: cover;
   margin-top: auto;
   border-radius: 10%;
+}
+.thumbnail_box img:hover {
+  opacity: 0.5;
+}
+.thumbActive {
+  outline: 2px solid red;
+  opacity: 0.5;
 }
 .details_container {
   display: flex;
@@ -310,11 +360,11 @@ li a {
     max-width: 30rem;
   }
   .image_container .main_image {
-    height: auto;
+    height: clamp(10rem, 95vw, 30rem);;
     display: grid;
     place-items: center;
   }
-  #preview_Image {
+  .productView {
     border-radius: 0;
     max-width: 30rem;
   }
@@ -405,6 +455,9 @@ li a {
     margin-bottom: 3rem;
     display: block;
     width: 1.3rem;
+  }
+  #image_wrapper {
+    border-radius: 0;
   }
 
 }
