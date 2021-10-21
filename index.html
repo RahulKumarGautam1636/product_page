@@ -52,7 +52,9 @@
     <div class="image_container">
       <div  class="main_image">
       <div id="image_wrapper">
-         <img onclick="slideRight(event)" class="arrows arrowLeft" src="images/icon-previous.svg" alt="arroRight"/>
+        <div onclick="slideRight(event)" class="arrows arrowLeft">
+             <img src="images/icon-previous.svg" alt="arroRight"/>
+        </div>
          <div id='imgWrap'>
            <div>
            <img class="productView" id="preview_Image" src="images/image-product-1.jpg" alt="product"/>
@@ -67,7 +69,9 @@
            <img class="productView" src="images/image-product-4.jpg" alt="product"/>
            </div>
          </div>
-         <img onclick="slideLeft(event)" class="arrows" src="images/icon-next.svg" alt="arroRight"/>
+         <div onclick="slideLeft(event)" class="arrows">
+             <img  src="images/icon-next.svg" alt="arroRight"/>
+         </div>
       </div>
       </div>
       <div class="thumbnail_box">
@@ -78,8 +82,6 @@
       </div>
     </div>
   </div>
-
-
     <div id="details_box" class="details_container">
      <p>SNEAKER COMPANY</p>
      <h1>Fall Limited Edition Sneakers</h1>
@@ -103,6 +105,10 @@
        </button>
      </div>
     </div>
+  </div>
+  <div class="attribution">
+    <p>Challenge by - <span><a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.</span>
+    Coded by - <span><a href="https://www.frontendmentor.io/profile/RahulKumarGautam1636">Rahul Kumar Gautam</a></span>.</p>
   </div>
 <script>
   const nav_bar = document.querySelector('.nav_container .nav_links');
