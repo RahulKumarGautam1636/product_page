@@ -13,8 +13,6 @@
 </head>
 <body>
   <div class="nav_container">
-    <!-- <div class="nav"> -->
-
       <div class="logo_container">
       <img onclick="toggleNav()" id="open_menu" src="images/icon-menu.svg" alt="menu">
       <img class="logo" src="images/logo.svg" alt="logo">
@@ -31,9 +29,7 @@
         <li><a href="#">Contact</a></li>
       </ul>
     </div>
-
   </div>
-  <!-- </div> -->
     <div class="cart_container">
       <img id="cartIcon" onclick="toggleCart()" src="images/icon-cart.svg" alt="cart">
       <img id="avatarImage" src="images/image-avatar.png" alt="profile_img">
@@ -44,22 +40,19 @@
         <h4>Your cart is empty.</h4>
       </div>
       <div id="cart_wrapper">
-
     <div style="width: 100%" id="cart_list">
-
     </div>
       <button id="checkout_button" type="button" name="button">CHECKOUT</button>
     </div>
     </div>
   </div>
   <div class="product_container">
+
+    <div onclick="toggleLightBox()" id="lightbox">
     <div class="image_container">
-      <div class="main_image">
-      <!-- <img id="preview_Image" src="images\image-product-1.jpg" alt="preview"> -->
-
+      <div  class="main_image">
       <div id="image_wrapper">
-         <img onclick="slideRight()" class="arrows arrowLeft" src="images/icon-previous.svg" alt="arroRight"/>
-
+         <img onclick="slideRight(event)" class="arrows arrowLeft" src="images/icon-previous.svg" alt="arroRight"/>
          <div id='imgWrap'>
            <div>
            <img class="productView" id="preview_Image" src="images/image-product-1.jpg" alt="product"/>
@@ -74,19 +67,19 @@
            <img class="productView" src="images/image-product-4.jpg" alt="product"/>
            </div>
          </div>
-
-         <img onclick="slideLeft()" class="arrows" src="images/icon-next.svg" alt="arroRight"/>
+         <img onclick="slideLeft(event)" class="arrows" src="images/icon-next.svg" alt="arroRight"/>
       </div>
-
-
       </div>
       <div class="thumbnail_box">
-        <img onclick="switchImage(1)" src="images\image-product-1-thumbnail.jpg" alt="thumbnail">
-        <img onclick="switchImage(2)" src="images\image-product-2-thumbnail.jpg" alt="thumbnail">
-        <img onclick="switchImage(3)" src="images\image-product-3-thumbnail.jpg" alt="thumbnail">
-        <img onclick="switchImage(4)" src="images\image-product-4-thumbnail.jpg" alt="thumbnail">
+        <img onclick="switchImage(event, 0)" src="images\image-product-1-thumbnail.jpg" alt="thumbnail">
+        <img onclick="switchImage(event, 1)" src="images\image-product-2-thumbnail.jpg" alt="thumbnail">
+        <img onclick="switchImage(event, 2)" src="images\image-product-3-thumbnail.jpg" alt="thumbnail">
+        <img onclick="switchImage(event, 3)" src="images\image-product-4-thumbnail.jpg" alt="thumbnail">
       </div>
     </div>
+  </div>
+
+
     <div id="details_box" class="details_container">
      <p>SNEAKER COMPANY</p>
      <h1>Fall Limited Edition Sneakers</h1>
@@ -117,6 +110,8 @@
   const cart_list = document.querySelector('#cart_list');
   const previewImage = document.querySelector('#preview_Image');
   const cartWrapper = document.querySelector('#cart_wrapper');
+  const imgWrap = document.querySelector("#imgWrap");
+  const lightbox = document.querySelector("#lightbox");
   let totalItem = 1;
   const items = [
     {
@@ -215,9 +210,6 @@
     cartItems.forEach(i => newItem(i.id, i.thumbs[0], i.tag, i.rate, i.totalItem));
   }
   renderCart();
-  const switchImage = (i) => {
-    preview_Image.setAttribute('src', `images/image-product-${i}.jpg`);
-  }
   const checkDuplicate = (id) => {
     const duplicateItem = cartItems.filter(i => i.id === id );
     if (duplicateItem.length > 0) {
@@ -225,31 +217,34 @@
     }
     return false;
   }
-  const imgWrap = document.querySelector("#imgWrap");
   let n = 0;
   let numberOfImages = 4;
   let translatePerClick = 100/numberOfImages;
-  var c = document.querySelector(".thumbnail_box").children[0];
-  c.classList.add('thumbActive');
-  function slideLeft() {
+
+  function slideLeft(event) {
     if (n <= 2) {
       n = n + 1;
       imgWrap.style.transform = `translateX(-${translatePerClick*n}%)`;
-      c = document.querySelector(".thumbnail_box").children[n];
-      c.classList.add('thumbActive');
-      c = document.querySelector(".thumbnail_box").children[n-1];
-      c.classList.remove('thumbActive');
     }
+    event.stopPropagation();
   }
   function slideRight() {
     if (n >= 1) {
-      n = n-1;1
+      n = n-1;
       imgWrap.style.transform = `translateX(-${translatePerClick*n}%)`;
-      c = document.querySelector(".thumbnail_box").children[n];
-      c.classList.add('thumbActive')
-      c = document.querySelector(".thumbnail_box").children[n+1];
-      c.classList.remove('thumbActive');
     }
+    event.stopPropagation();
+  }
+  let c = document.querySelectorAll(".thumbnail_box img");
+  c[0].classList.add('thumbActive');
+  const switchImage = (event, img) => {
+    imgWrap.style.transform = `translateX(-${translatePerClick*img}%)`;imgWrap.style.transform = `translateX(-${translatePerClick*img}%)`;
+    c.forEach(i => i.classList.remove('thumbActive'));
+    document.querySelector(".thumbnail_box").children[img].classList.add('thumbActive');
+    event.stopPropagation();
+  }
+  const toggleLightBox = () => {
+    lightbox.classList.toggle('lightbox_active');
   }
 </script>
 </body>
