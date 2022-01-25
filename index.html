@@ -31,7 +31,12 @@
     </div>
   </div>
     <div class="cart_container">
-      <img id="cartIcon" onclick="toggleCart()" src="images/icon-cart.svg" alt="cart">
+      <span class="cartImage">
+        <div>
+          <p id="cartItemsCount">1</p>
+        </div>
+        <img id="cartIcon" onclick="toggleCart()" src="images/icon-cart.svg" alt="cart">
+      </span>
       <img id="avatarImage" src="images/image-avatar.png" alt="profile_img">
     </div>
     <div class="cart">
@@ -116,6 +121,8 @@
   const cart_list = document.querySelector('#cart_list');
   const previewImage = document.querySelector('#preview_Image');
   const cartWrapper = document.querySelector('#cart_wrapper');
+  const cartItemsCount = document.querySelector('#cartItemsCount');
+  const cartItemsCountBox = document.querySelector(".cartImage div")
   const imgWrap = document.querySelector("#imgWrap");
   const lightbox = document.querySelector("#lightbox");
   let totalItem = 1;
@@ -161,6 +168,7 @@
     const selectedItem = items.filter(i => i.id === id)[0];
     newItem(selectedItem.id, selectedItem.thumbs[0], selectedItem.tag, selectedItem.rate, totalItem);
     cartItems.push(selectedItem);
+    showCartEmpty();
   }
 
   const newItem = (id, imgLink='1', tag='This is sample code', rate=100.50, quantity=totalItem) => {
@@ -202,15 +210,9 @@
     while (cart_list.hasChildNodes()) {
       cart_list.removeChild(cart_list.firstChild);
     }
-    console.log(id);
-    cartItems = cartItems.filter(i => i.id !== id);1
-    console.log(cartItems);
+    cartItems = cartItems.filter(i => i.id !== id);
     cartItems.forEach(i => newItem(i.id, i.thumbs[0], i.tag, i.rate, i.quantity));
-    if (cartItems.length === 0) {
-      cartWrapper.classList.add('hide');
-    } else if (cartItems.length === 1) {
-      cartWrapper.classList.remove('hide');
-    }
+    showCartEmpty();
   }
   function renderCart() {
     cartItems.forEach(i => newItem(i.id, i.thumbs[0], i.tag, i.rate, i.totalItem));
@@ -222,6 +224,16 @@
       return true;
     }
     return false;
+  }
+  const showCartEmpty = () => {
+    if (cartItems.length === 0) {
+      cartWrapper.classList.add('hide');
+      cartItemsCountBox.style.display = "none";
+    } else {
+      cartWrapper.classList.remove('hide');
+      cartItemsCountBox.style.display = "grid";
+      cartItemsCount.innerText = cartItems.length;
+    }
   }
   let n = 0;
   let numberOfImages = 4;
@@ -255,9 +267,3 @@
 </script>
 </body>
 </html>
-
-
-<!-- <div class="attribution">
-  Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-  Coded by <a href="#">Your Name Here</a>.
-</div> -->
