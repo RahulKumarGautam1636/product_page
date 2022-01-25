@@ -95,6 +95,25 @@ body {
 #cartIcon:hover {
   filter: invert(1);
 }
+.cartImage {
+  position: relative;
+}
+.cartImage > div {
+  position: absolute;
+  height: 1rem;
+  width: 1.5rem;
+  background: orange;
+  border-radius: 20px;
+  right: -1rem;
+  top: -0.8rem;
+  display: grid;
+  place-items: center;
+}
+.cartImage > div > p {
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+}
 .cart h3 {
   padding: 1rem 1.5rem;
   color: hsl(220, 13%, 13%);
